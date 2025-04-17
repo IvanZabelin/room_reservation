@@ -8,7 +8,9 @@ from app.api.validators import (
     check_reservation_before_edit,
 )
 from app.core.db import get_async_session
+from app.core.user import current_user
 from app.crud.reservation import reservation_crud
+from app.models import User
 from app.schemas.reservation import (
     ReservationCreate,
     ReservationDB,
@@ -19,17 +21,18 @@ from app.schemas.reservation import (
 router = APIRouter()
 
 
-@router.post('/')
+@router.post('/', response_model=ReservationDB)
 async def create_reservation(
     reservation: ReservationCreate,
-    session: AsyncSession =  Depends(get_async_session)
+    session: AsyncSession =  Depends(get_async_session),
+    user: User = Depends(current_user),
 ):
     await check_meeting_room_exists(reservation.meetingroom_id, session)
     await check_reservation_intersections(
         **reservation.dict(), session=session
     )
     new_reservation = await reservation_crud.create(
-        reservation, session
+        reservation, session, user
     )
     return new_reservation
 

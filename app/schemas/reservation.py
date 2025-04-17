@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+from typing import Optional
+
 from pydantic import BaseModel, Extra, Field, root_validator, validator
 
 
@@ -46,12 +48,11 @@ class ReservationUpdate(BaseModel):
     to_reserve: datetime
 
 
-class ReservationDB(BaseModel):
+class ReservationDB(ReservationBase):
     id: int
     meetingroom_id: int
-    from_reserve: datetime
-    to_reserve: datetime
+    user_id: Optional[int]
+
 
     class Config:
         orm_mode = True
-
