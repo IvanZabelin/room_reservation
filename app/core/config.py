@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     secret: str = 'SECRET'
     first_superuser_email: Optional[EmailStr] = None
     first_superuser_password: Optional[str] = None
+    email: Optional[str] = None
+    google_application_credentials: Optional[str] = None
 
     class Config:
         env_file = '.env'
