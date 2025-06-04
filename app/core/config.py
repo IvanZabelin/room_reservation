@@ -11,10 +11,11 @@ class Settings(BaseSettings):
     first_superuser_email: Optional[EmailStr] = None
     first_superuser_password: Optional[str] = None
     email: Optional[str] = None
-    google_application_credentials: Optional[str] = None
+    google_application_credentials: str 
 
     class Config:
         env_file = '.env'
+        env_file_encoding = "utf-8"
 
 
 settings = Settings()

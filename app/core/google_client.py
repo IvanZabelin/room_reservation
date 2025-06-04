@@ -3,7 +3,7 @@ import os
 from aiogoogle import Aiogoogle
 from aiogoogle.auth.creds import ServiceAccountCreds
 
-from app.core.config import settings
+
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -11,7 +11,7 @@ SCOPES = [
 ]
 
 
-credentials_path = settings.google_application_credentials
+credentials_path = "D:\\Dev\\room_reservation\\privat-key.json"
 if not credentials_path or not os.path.exists(credentials_path):
     raise ValueError("Google application credentials path is not set or does not exist.")
 
